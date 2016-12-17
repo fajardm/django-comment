@@ -1,0 +1,28 @@
+<div class="uk-width-1-10 uk-hidden-small">
+    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNTB4NTAvYXV0bwpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNS4yLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnMvPjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjYuODIwMzEyNSIgeT0iMjkuMzU5Mzc1IiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQiPjUweDUwPC90ZXh0PjwvZz48L3N2Zz4="
+         alt="User Avatar">
+</div>
+<div class="uk-width-medium-9-10 uk-width-small-1-1">
+    <form onsubmit="return update_comment(this);" id="comment-form" class="uk-form"
+          action="{% url 'comment:edit' comment.id %}"
+          method="POST"
+          novalidate>
+        {% csrf_token %}
+        {{ form.content_type }}
+        {{ form.object_id }}
+        <div class="uk-form-row">
+            <textarea class="uk-width-1-1{% if form.comment.errors %} uk-form-danger{% endif %}" cols="40"
+                      id="id_comment" name="comment" rows="5" required="">{{ comment.comment }}</textarea>
+            {% if form.comment.errors %}
+                {% for error in form.comment.errors %}
+                    <p class="uk-text-danger uk-margin-small-top">{{ error|escape }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="uk-form-row">
+            <button class="uk-button uk-button-primary uk-float-right" type="submit">
+                Add comment
+            </button>
+        </div>
+    </form>
+</div>

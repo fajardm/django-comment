@@ -1,0 +1,31 @@
+{% load humanize %}
+<div class="uk-width-small-1-1">
+    <hr class="uk-grid-divider">
+    <ul class="uk-comment-list">
+        {% for comment in comment_list %}
+            <li>
+                <article class="uk-grid uk-grid-small" id="{{ comment.id }}">
+                    <div class="uk-width-1-10 uk-hidden-small">
+                        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNTB4NTAvYXV0bwpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNS4yLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnMvPjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjYuODIwMzEyNSIgeT0iMjkuMzU5Mzc1IiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQiPjUweDUwPC90ZXh0PjwvZz48L3N2Zz4="
+                             alt="50x50">
+                    </div>
+                    <div class="uk-width-9-10">
+                        <h4 class="uk-margin-remove uk-display-inline">{{ comment.created_by.username }}</h4>
+                        <span class="uk-text-muted">{{ comment.created_at|naturaltime }}</span>
+                        {% if request.user == comment.created_by %}
+                            <a href="{% url 'comment:edit' comment.id %}" onclick="return comment_edit(this)"
+                               class="uk-float-right uk-margin-small-left uk-text-small">Edit
+                            </a>
+                            <a href="{% url 'comment:delete' comment.id %}"
+                               onclick="return delete_comment(this)"
+                               class="uk-float-right uk-text-small">Delete</a>
+                        {% endif %}
+                        <p class="uk-margin-small-top">
+                            {{ comment.comment }}
+                        </p>
+                    </div>
+                </article>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
